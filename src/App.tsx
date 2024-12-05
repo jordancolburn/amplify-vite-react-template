@@ -34,7 +34,7 @@ function App() {
       <h2>What is your mood?</h2>
       <input type="text" onChange={(ref)=>setMood(ref.target.value)} />
       <br />
-      <button onClick={generateNow}>Generate News</button>
+      <button onClick={generateNow}>Get News</button>
       <br />
       {isLoading ? ("loading") : (
         <>
