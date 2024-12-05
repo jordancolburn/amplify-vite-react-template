@@ -9,5 +9,5 @@ const backend = defineBackend({
 
 export const httpDataSource = backend.data.addHttpDataSource(
   "HttpDataSource",
-  "https://api.thenewsapi.com/v1"
+  "https://api.thenewsapi.com/v1/news/top?api_token=FWLMxOz0vFti9cTYIbyUuI0xhIy4XOKOEynpdWxl&locale=us&limit=3"
 );
