@@ -25,7 +25,7 @@ const schema = a.schema({
     Please limit your titles to 80 characters and summaries to a few bullet points grouped by topic.
     break the bullet points into new lines.
     use emojis if you can and try to match the users mood in a funny way.
-    ',
+    `,
   })
   .arguments({
     description: a.string(),
