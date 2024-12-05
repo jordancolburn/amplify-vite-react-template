@@ -11,7 +11,42 @@ const schema = a.schema({
     .model({
       content: a.string(),
     })
+    
     .authorization((allow) => [allow.publicApiKey()]),
+    
+  News: a.customType({
+    meta: a.json(),
+    data: a.json(),
+  }),
+  generateNews: a.generation({
+    aiModel: a.ai.model('Claude 3.5 Haiku'),
+    systemPrompt: `
+    You are a helpful assistant that generates snarky news article summaries accoring to the user mood.
+    Please limit your titles to 80 characters and summaries to a few bullet points grouped by topic.
+    break the bullet points into new lines.
+    use emojis if you can and try to match the users mood in a funny way.
+    ',
+  })
+  .arguments({
+    description: a.string(),
+    mood: a.string(),
+  })
+  .returns(
+    a.customType({
+      title: a.string(),
+      summary: a.string(),
+    })
+  ).authorization((allow) => [allow.publicApiKey()]),
+  getNews: a
+    .query()
+    .returns(a.ref("News"))
+    .authorization(allow => [allow.publicApiKey()])
+    .handler(
+      a.handler.custom({
+        dataSource: "HttpDataSource",
+        entry: "./getNews.js",
+      })
+    ),
 });
 
 export type Schema = ClientSchema<typeof schema>;
